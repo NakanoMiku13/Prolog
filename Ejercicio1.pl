@@ -1,13 +1,22 @@
-split([],0,R1,R2).
-split([Head|_],1,R1,R2):-
-    R1 is Head.
-firstHalf([],0,0,L).
-firstHalf([Head|Tail],0,0,[Head]).
-firstHalf([Head|Tail],N1,N,R):-
-    N1 < N,
-    N2 is N1 + 1,
-    append([Head],Tail,R),
-    firstHalf(Tail,N2,N,).
-split([Head|Tail],N,R1,R2):-
-    firstHalf([Head,Tail],N,R1).
-
+firstHalf([],0,[]).
+firstHalf([H],0,[H]).
+firstHalf([H|_],0,[H]).
+firstHalf([H|T],N,[H|L]):-
+    N1 is N - 1,
+    firstHalf(T,N1,L).
+getLast([_|T],0,T).
+getLast([_|T],N,L):-
+    N1 is N - 1,
+    getLast(T,N1,L).
+calcLong([],0).
+calcLong([_|Tail],S):-
+    calcLong(Tail,S1),
+    S is S1 + 1.
+separate([],0,[],[]).
+separate([H],0,[H],[]).
+separate([H|L],0,[H],L).
+separate([H,H1|T],1,[H,H1],T).
+separate([H|T],N,L1,L2):-
+    calcLong(T,N1),
+    firstHalf([H|T],N,L1),
+    getLast(T,N-1,L2).
