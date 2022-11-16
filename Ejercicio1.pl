@@ -8,15 +8,10 @@ getLast([_|T],0,T).
 getLast([_|T],N,L):-
     N1 is N - 1,
     getLast(T,N1,L).
-calcLong([],0).
-calcLong([_|Tail],S):-
-    calcLong(Tail,S1),
-    S is S1 + 1.
 separate([],0,[],[]).
 separate([H],0,[H],[]).
 separate([H|L],0,[H],L).
 separate([H,H1|T],1,[H,H1],T).
 separate([H|T],N,L1,L2):-
-    calcLong(T,N1),
     firstHalf([H|T],N,L1),
     getLast(T,N-1,L2).

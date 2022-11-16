@@ -2,18 +2,18 @@
 %% Sánchez Calderon Estefany Karina
 %% Vázquez López Alejandro
 %% Ulrich Tamayo Daniel
-contar([],Comp,0).
-contar([H],H,0):-
-    N is 1.
-contar([Head|Tail],Head,N):-
-    contar(Tail,Head,N1),
-    N is N1 + 1.
-contar([Head|Tail],Comp,N):-
-    N is 0.
-codifica([],_).
-codifica([H],[H,1]).
+contar([],H,_).
+contar([H],H,1).
+contar([H,A],H,1).
+contar([H,H],H,2).
+contar([H,A|_],H,1)
+contar([H|T],H,L):-
+    contar(T,H,L1),
+    L is L1 + 1.
+contar([H|T],C,1).
+codifica([],[]).
+codifica([H],[H]).
+codifica([H,H],[H,2]).
 codifica([Head|Tail],R):-
-    contar(Tail,Head,N1),
-    codifica(Tail,R1),
-    N is N1 + 1,
-    append([Head,N],R1,R).
+    contar(Tail,Head,N),
+    write(N).
